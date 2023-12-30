@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+                xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" >
+	<head>
+		<link th:href="@{/css/main.css}" href="../static/css/main.css" rel="stylesheet" type="text/css"/>
+		    <link th:href="@{/css/header.css}" href="../static/css/main.css" rel="stylesheet" type="text/css"/>
+
+		<title>Login</title>
+	</head>
+	<body>
+		<header class="header">
+		<a th:href="@{/}"><img class="logo" th:src="@{/images/MystiCircuslogos.png}" </a>
+         <ul class="main-nav">
+		   <li><a th:href="@{/}">Home</a></li>
+           <li sec:authorize="isAnonymous()"><a th:href="@{/registration}">Register</a></li>
+      	  </ul>
+        </header>
+		
+		<div class="login">
+	<h1>Login Page</h1>
+	
+	
+	
+	<div th:if="${param.failed}">
+	     UserName or password was incorrect.
+	</div>
+	
+	<div th:if="${param.logout}">
+        You logged out!
+	</div>
+	
+	<div sec:authorize="isAuthenticated()">
+		User's name: <span sec:authentication="name"></span>
+		<br>
+		Roles: <span sec:authentication="principal.authorities"></span> 
+		<br><hr>
+		<form th:action="@{/logout}" method="post">
+			<input class="submit" type="Submit" value="Logout">
+		</form>
+		
+	</div>
+   
+    <div sec:authorize="isAnonymous()">
+		<form th:action="@{/login}" method="post"> 
+			  
+			<input type="text" name="username" placeholder="Username" autofocus="autofocus"></label>
+			<br>
+			<br>
+        	<input type="password" name="password" placeholder="Password"></label>
+        	<br>
+        	<br>
+    		<input class="submit" type="submit" value ="Login">
+	  	</form>	
+	</div>
+     </div>
+     
+	
+	
+	
+    <br>
+	<br>
+	<br>
+	</body>
+</html>

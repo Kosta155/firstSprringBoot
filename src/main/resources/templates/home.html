@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/header.css}" href="../static/css/main.css" rel="stylesheet" type="text/css"/>
+
+	   <link th:href="@{/css/main.css}" href="../static/css/main.css" rel="stylesheet" type="text/css"/>
+
+
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<header class="header">
+		<a th:href="@{/}"><img class="logo" th:src="@{/images/MystiCircuslogos.png}" </a>
+         <ul class="main-nav">
+		   <li><a th:href="@{/}">Home</a></li>
+		   <li><a th:href="@{/viewTickets}">View Tickets</a></li>
+           <li><a sec:authorize="hasRole('ROLE_VENDER')" th:href="@{/add}">Add a Ticket</a>
+</li>
+
+           <li sec:authorize="isAnonymous()"><a th:href="@{/registration}">Register</a></li>
+           <li sec:authorize="isAnonymous()"><a th:href="@{/login}">Log in</a></li>
+		   <li sec:authorize="isAuthenticated()">
+    			<form th:action="@{/logout}" method="post">
+        			<input class="logout" type="submit" value="Logout">
+    			</form>
+		   </li>
+      	  </ul>
+</header>
+<main>
+	<div sec:authorize="isAuthenticated()">
+     <h1> Welcome <span sec:authentication="name"></span></h1></div>
+	<img id="banner" th:src="@{/images/bannerbanner.png}" alt="banner">
+	
+	<div id="text">
+	<h1 style="color:white;">🎪 Ladies and Gentlemen, Children of All Ages, Welcome to the Marvelous World of MystiCircus Carnival! 🎪</h1>
+
+
+<div id="more">
+    
+    <h4>We are coming in Mississauga</h4>
+    <p>Prepare to be mesmerized as the enchanting world of MystiCircus descends upon Mississauga. 
+		Under the grand Big Top, gravity-defying acrobats, mind-bending illusionists, and captivating 
+		creatures will weave a tapestry of magic and wonder. Join us for a spellbinding experience that 
+		transcends reality and ignites your imagination. MystiCircus is more than an event; it's a 
+		breathtaking journey that promises thrills, laughter, and unforgettable memories.
+		
+		
+		</p>
+		<br>
+		<h3>When?  25th December 2022 at 6:00 pm</h3>
+		<h3>Where?  International Centre</h3>
+       <h6>Don't miss it!</h6>
+	</div>
+
+
+<div id="expect">
+	<h4>What to expect?</h4>
+	<p>Our circus is more than just a show; it's a celebration of the incredible talents and skills that have 
+	been passed down through generations. From death-defying acrobatics that will leave you on the edge of 
+	your seat to astonishing illusions that challenge reality itself, our performers have honed their craft 
+	to perfection.</p>
+	</div>
+	
+	
+
+	
+	
+	
+	<img th:src="@{images/about.jpg}" id="aboutimage">
+	
+	
+	<div id="about">
+   <h4>About us</h4>
+<p>Prepare to be enchanted, thrilled, and mesmerized as we transport you to a realm where the ordinary transforms 
+	into the extraordinary, and imagination knows no bounds. MystiCircus Carnivals is not just an event – it's 
+	a journey into a universe of magic, wonder, and heart-stopping performances that will leave you breathless. 
+	In a world where the laws of gravity are defied, where mystery and excitement reign, and where laughter and
+	awe intertwine, we invite you to join us under the Big Top for an unforgettable experience that will ignite 
+	your senses and ignite your sense of wonder.</p> 
+</div>	
+    
+    	<img th:src="@{images/experiences.jpg}" id="eximage">
+
+    <div id="welcome">
+    <h6>So, grab your popcorn, settle into your seat, and let the magic of MystiCircus Carnivals 
+		sweep you off your feet. We promise an experience that will captivate your imagination, warm your heart, 
+		and leave you with a smile that lasts long after the final curtain falls.
+		<br>
+        Welcome to MystiCircus Carnivals – Where Dreams Take Center Stage and Reality Takes a Bow!
+    </h6>
+    </div>
+	</div>
+</main>
+ 
+
+
+</body>
+</html>

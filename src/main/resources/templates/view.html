@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/main.css}" href="../static/css/main.css" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/header.css}" href="../static/css/main.css" rel="stylesheet" type="text/css"/>
+
+    <meta charset="UTF-8">
+    <title>View Tickets</title>
+</head>
+<body>
+
+<header class="header">
+		<a th:href="@{/}"><img class="logo" th:src="@{/images/MystiCircuslogos.png}" </a>
+         <ul class="main-nav">
+		   <li><a th:href="@{/}">Home</a></li>
+           <li><a sec:authorize="hasRole('ROLE_VENDER')" th:href="@{/add}">Add a Ticket</a>
+</li>
+           <li sec:authorize="isAnonymous()"><a th:href="@{/registration}">Register</a></li>
+           <li sec:authorize="isAnonymous()"><a th:href="@{/login}">Log in</a></li>
+		   <li sec:authorize="isAuthenticated()">
+    			<form th:action="@{/logout}" method="post">
+        			<input class="logout" type="submit" value="Logout">
+    			</form>
+		   </li>
+      	  </ul>
+</header>
+  
+
+
+       <table>
+    <tr>
+        <th>GuestName</th>
+        <th>Price</th>
+        <th>Ticket Type</th>
+        <th>Ticket Description</th>
+        <th>Seat Number</th>
+        <th>Secret Code</th>
+        <th sec:authorize="hasRole('ROLE_VENDER')"> </th>
+    </tr>
+    <tr th:each="ticket:${tickets}">
+        <td  th:text=" ${ticket.guestName}"></td>
+        <td th:text="${'$' + #numbers.formatDecimal (ticket.price,1, 'POINT', 2, 'COMMA')}"></td>
+        <td th:text="${ticket.ticketType}"></td>
+
+        <td th:text="${ticket.ticketDescription}"></td>
+        <td th:text=" ${ticket.seat}"></td>
+        <td th:text="${ticket.secretCode}"></td>
+        <th sec:authorize="hasRole('ROLE_VENDER')">
+           <a class="change" sec:authorize="hasRole('ROLE_VENDER')" th:href="@{/edit/{id}(id=${ticket.ticketId})}">Edit</a>
+            | 
+           <a class="change" sec:authorize="hasRole('ROLE_VENDER')" th:href="@{/delete/{id}(id=${ticket.ticketId})}">Delete</a>
+
+        </th>
+    </tr>
+</table>
+
+
+<div sec:authorize="hasRole('ROLE_GUEST')">
+	 <table>
+		 <tr>
+			 <th>Subtotal</th>
+			 <td th:text="${'$' + #numbers.formatDecimal (subtotal,1, 'POINT', 2, 'COMMA')}"></td>
+		 </tr>
+		 <tr>
+			 <th>Tax</th>			 
+			 <td th:text="${'$' + #numbers.formatDecimal (tax,1, 'POINT', 2, 'COMMA')}"></td>
+		</tr>
+		 <tr>
+			 <th>Total</th>			 
+		     <td th:text="${'$' + #numbers.formatDecimal (total,1, 'POINT', 2, 'COMMA')}"></td>
+		</tr>
+	 </table>
+	 
+</div>
+</body>
+</html>

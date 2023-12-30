@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+                xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" >
+	<head>
+		<title>Registration</title>
+		<link th:href="@{/css/main.css}" href="../static/css/main.css" rel="stylesheet" type="text/css"/>
+		    <link th:href="@{/css/header.css}" href="../static/css/main.css" rel="stylesheet" type="text/css"/>
+
+	</head>
+	
+	<header class="header">
+		<a th:href="@{/}"><img class="logo" th:src="@{/images/MystiCircuslogos.png}" </a>
+         <ul class="main-nav">
+		   <li><a th:href="@{/}">Home</a></li>
+           <li sec:authorize="isAnonymous()"><a th:href="@{/login}">Log in</a></li>
+		   <li sec:authorize="isAuthenticated()">
+    			<form th:action="@{/logout}" method="post">
+        			<input class="logout" type="submit" value="Logout">
+    			</form>
+		   </li>
+      	  </ul>
+</header>
+	<body>
+		<div class="login">
+	<h1>Registration Page</h1>
+	
+	
+	
+      
+		<form th:action="@{/registration}" method="post">   
+			 <input type="text" name="username" placeholder="Username" autofocus="autofocus">
+			 <br><br>
+        	 <input type="text" name="password" placeholder="Password">
+        	<br><br>
+    		<input class="submit"type="submit" value ="Register">
+	  	</form>	
+
+	     </div>
+
+	
+	<br>
+	<br>
+
+	</body>
+</html>
